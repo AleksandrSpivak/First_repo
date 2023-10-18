@@ -1,16 +1,33 @@
-# Definition for singly-linked list.
-class ListNode:
-    def __init__(self, val=0, next=None):
-        self.val = val
-        self.next = next
+class Human:
+    name = ''
+    def voice(self):
+        print(f"Hello! My name is {self.name}")
 
-class Solution:
-    def middleNode(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        new_list = list()
-        if len(head) % 2:
-            middle = len(head) //2 +1
-        else:
-            middle = len(head) //2 +1
-        new_list = head[:middle]
-        return new_list 
-    
+
+class Developer(Human):
+    field_description = "My Programming language"
+    language = ""
+    def make_some_code(self):
+        return f"{self.field_description} is {self.value}"
+
+
+class PythonDeveloper(Developer):
+    value = "Python"
+
+
+class JSDeveloper(Developer):
+    value = "JavaScript"
+
+
+p_dev = PythonDeveloper()
+p_dev.name = 'Bob'
+p_dev.voice()   # Hello! My name is Bob
+p_dev.make_some_code()  # My Programming language is Python
+
+
+js_dev = JSDeveloper()
+js_dev.make_some_code()  # My Programming language is JavaScript
+
+dev = Developer()
+dev.name = 'as'
+print(dev.make_some_code)

@@ -1,0 +1,21 @@
+{
+	"folders": [
+		{
+			"name": "First_repo",
+			"path": "."
+		},
+		{
+			"name": "goitneo-python-hw-1-group-5",
+			"path": "../../../Desktop/Projects/vscode-basics/goitneo-python-hw-1-group-5"
+		},
+		{
+			"path": "../../../Desktop/Projects/vscode-basics/goitneo-python-hw-2-group-5"
+		}
+	],
+	"settings": {
+		"[python]": {
+			"editor.defaultFormatter": "ms-python.black-formatter"
+		},
+		"python.formatting.provider": "none"
+	}
+}

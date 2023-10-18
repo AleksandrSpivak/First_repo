@@ -1,4 +1,19 @@
+#errors are handled as a class
+
 import re
+
+
+class ContactAlreadyExistsError(Exception):
+    pass
+
+class ContactDoesNotExistError(Exception):
+    pass
+
+class NotPhoneNumberError(Exception):
+    pass
+
+class ContactListIsEmptyError(Exception):
+    pass
 
 
 def parse_input(user_input):
@@ -6,7 +21,7 @@ def parse_input(user_input):
         cmd, *args = user_input.split()
         cmd = cmd.strip().lower()
         return cmd, *args
-    except:
+    except ValueError:
         return "Invalid command."
 
 
@@ -30,13 +45,13 @@ def input_error(func):
         try:
             [name, phone], contacts = args
             if is_in_dictionary(name, contacts):
-                raise KeyError
+                raise ContactAlreadyExistsError
             if not is_phone_number(phone):
-                raise TypeError
+                raise NotPhoneNumberError
             return func(*args, **kwargs)
-        except KeyError:
+        except ContactAlreadyExistsError:
             return "Such contact already exists"
-        except TypeError:
+        except NotPhoneNumberError:
             return "Number should consist of digits"
         except (IndexError, ValueError):
             return "Give me name and phone please."
@@ -55,13 +70,13 @@ def change_contact_error(func):
         try:
             [name, phone], contacts = args
             if not is_phone_number(phone):
-                raise TypeError
+                raise NotPhoneNumberError
             if name not in contacts:
-                raise KeyError
+                raise ContactDoesNotExistError
             return func(*args, **kwargs)
-        except TypeError:
+        except NotPhoneNumberError:
             return "Number should consist of digits"
-        except KeyError:
+        except ContactDoesNotExistError:
             return "No such contact"       
         except ValueError:
             return "Give me name and phone please."      
@@ -80,9 +95,9 @@ def show_phone_error(func):
         try:
             [name], contacts = args
             if name not in contacts:
-                raise KeyError
+                raise ContactDoesNotExistError
             return func(*args, **kwargs)
-        except KeyError:
+        except ContactDoesNotExistError:
             return "No such contact"
         except ValueError:
             return "Give me name please."       
@@ -100,9 +115,9 @@ def show_all_error(func):
         try:
             contacts, = args
             if len(contacts) == 0:
-                raise IndexError
+                raise ContactListIsEmptyError
             return func(*args, **kwargs)
-        except IndexError:
+        except ContactListIsEmptyError:
             return "Empty contact list"       
     return inner
 
